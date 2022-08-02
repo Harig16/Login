@@ -4,17 +4,33 @@ import './App.css';
 
 class App extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      isLoggedIn: "Not_Logged_in",
+      isLoggedIn: false,
+      user: {}
     }
+  }
+
+  handleLogin = (data) => {
+    this.setState({
+      isLoggedIn: true,
+      user: data.user
+    })
+    console.log("isloggedin: ", this.state.isLoggedIn)
+  }
+
+  handleLogout = () => {
+    this.setState({
+    isLoggedIn: false,
+    user: {}
+    })
   }
 
   render() {
     return (
       <div className="App">
-        <Navigation isLoggedIn={this.state.isLoggedIn} />
+        <Navigation isLoggedIn={this.state.isLoggedIn} user={this.state.user} handleLogin={this.handleLogin} />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 const Home = (props) => {
 
-  if(props.isLogged ===  "Not_Logged_in") {
+  if(props.isLogged === false) {
     return <Navigate to="/login" replace={true} />
   }
 
@@ -11,6 +11,7 @@ const Home = (props) => {
     <div>
       <h1>Hello from Home Component</h1>
       <p>Logged In Status: {props.isLogged}</p>
+      <p>Username: {props.user.username}</p>
     </div>
   )
 }

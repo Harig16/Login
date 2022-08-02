@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import { Navigate } from 'react-router-dom'
 
 class Login extends React.Component {
 
@@ -9,6 +10,7 @@ class Login extends React.Component {
       username: "",
       password: "",
       inputValue: "",
+      isLoggedIn: false,
     };
     this.inputHandler = this.inputHandler.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +23,7 @@ class Login extends React.Component {
   }
 
   handleSubmit = (e) => {
+    e.preventDefault();
     const { username, password } = this.state;
     axios
       .post("/login", {
@@ -29,10 +32,18 @@ class Login extends React.Component {
           password: password
         }
       }, { withCredentials: true })
-      .then((res) => {
-        console.log("Register user")
+      .then(res => {
+        const status = res.data.status;
+        if(status === "created") {
+          console.log("Status", res.data.status)
+          this.props.handleLogin(res.data)
+        }
       })
       .catch((error) => console.log(error))
+  }
+
+  redirect = () => {
+    return <Navigate to="/" replace={true} />
   }
 
   render () {

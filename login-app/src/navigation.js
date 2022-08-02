@@ -8,8 +8,8 @@ const Navigation = (props) => {
     <BrowserRouter>
       
       <Routes>
-        <Route path="/" element={<Home isLogged={props.isLoggedIn} />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Home isLogged={props.isLoggedIn} user={props.user} />}></Route>
+        <Route path="/login" element={<Login handleLogin={props.handleLogin} />}></Route>
       </Routes>
     </BrowserRouter>
   )
