@@ -10,7 +10,7 @@ class Login extends React.Component {
       username: "",
       password: "",
       inputValue: "",
-      isLoggedIn: false,
+      errors: {},
     };
     this.inputHandler = this.inputHandler.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

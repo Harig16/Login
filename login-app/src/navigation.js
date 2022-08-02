@@ -6,10 +6,9 @@ import Home from './components/Home'
 const Navigation = (props) => {
   return (
     <BrowserRouter>
-      
       <Routes>
-        <Route path="/" element={<Home isLogged={props.isLoggedIn} user={props.user} />}></Route>
-        <Route path="/login" element={<Login handleLogin={props.handleLogin} />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   )
