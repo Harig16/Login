@@ -1,6 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import Login from './Login'
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
 
@@ -12,14 +14,22 @@ class Home extends React.Component {
     }
   }
 
-  handleLogin = (data) => {
-    console.log("data:", data.user)
-    this.setState({
-      isLoggedIn: true,
-      user: data.user
-    }, () => {
-      console.log("LoggedInStatus: ", this.state.isLoggedIn)
-    })
+  handleUser = () => {
+    axios
+      .get('/me')
+      .then(res => {
+        //const user = res.data;
+        this.setState({
+          isLoggedIn: true,
+          user: res.data
+        })
+        console.log(res)
+      })
+      .catch( (err) => console.log(err))
+  }
+
+  componentDidMount() {
+    this.handleUser();
   }
 
   handleLogout = () => {
@@ -29,18 +39,24 @@ class Home extends React.Component {
     })
   }
 
-  render() {
-    if(this.state.isLoggedIn === false) {
-      return <Login handleLogin={this.handleLogin} />
-    }
-
+  display = () => {
     return (
       <div>
         <h1>Hello from Home Component</h1>
         <p>Logged In Status: {this.state.isLoggedIn ? "Logged IN" : "Not Logged In"}</p>
         <p>Username: {this.state.user.username}</p>
+    </div>
+    )  
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.isLoggedIn ? 
+        this.display() : 
+        <Link to='/login'>Login</Link> }
       </div>
-    )
+    ) 
   }
   
 }
